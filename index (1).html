@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mazen Sabry — Data Engineer</title>
+<meta name="description" content="Mazen Sabry — Junior Data Engineer portfolio. SQL, Python, ETL, data pipelines, cloud.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F1626;
+    --bg-elev:#141D33;
+    --bg-elev-2:#182342;
+    --line:rgba(241,237,228,0.10);
+    --line-strong:rgba(241,237,228,0.20);
+    --text:#F1EDE4;
+    --text-dim:#93A0BE;
+    --text-dimmer:#5E6A87;
+    --amber:#E8A33D;
+    --amber-soft:rgba(232,163,61,0.14);
+    --teal:#4FD1C5;
+    --teal-soft:rgba(79,209,197,0.14);
+    --serif:'Fraunces', Georgia, serif;
+    --sans:'Inter', system-ui, -apple-system, sans-serif;
+    --mono:'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+    --maxw:1120px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+
+  ::selection{background:var(--amber); color:#141926;}
+
+  :focus-visible{
+    outline:2px solid var(--amber);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+
+  h1,h2,h3{font-family:var(--serif); font-weight:500; margin:0; letter-spacing:-0.01em;}
+
+  /* ---------- NAV ---------- */
+  header.site-nav{
+    position:sticky; top:0; z-index:40;
+    background:rgba(15,22,38,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px; max-width:var(--maxw); margin:0 auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--serif); font-size:1.05rem; font-weight:500;
+    text-decoration:none; color:var(--text);
+  }
+  .brand-mark{
+    width:34px; height:34px; border-radius:9px;
+    background:linear-gradient(155deg, var(--amber), #c97f22);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-weight:600; font-size:0.8rem; color:#151b2c;
+  }
+  nav.nav-links{display:flex; gap:28px;}
+  nav.nav-links a{
+    font-size:0.92rem; text-decoration:none; color:var(--text-dim);
+    position:relative; padding:4px 0; transition:color 0.2s ease;
+  }
+  nav.nav-links a:hover{color:var(--text);}
+  nav.nav-links a.active{color:var(--amber);}
+  nav.nav-links a.active::after{
+    content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px;
+    background:var(--amber); border-radius:2px;
+  }
+  .nav-toggle{display:none; background:none; border:1px solid var(--line-strong); border-radius:8px; padding:8px 10px; color:var(--text);}
+
+  @media (max-width:820px){
+    nav.nav-links{
+      position:fixed; inset:64px 0 auto 0; flex-direction:column; gap:0;
+      background:var(--bg-elev); border-bottom:1px solid var(--line);
+      padding:8px 28px 18px; transform:translateY(-8px); opacity:0; pointer-events:none;
+      transition:all 0.22s ease;
+    }
+    nav.nav-links.open{transform:translateY(0); opacity:1; pointer-events:auto;}
+    nav.nav-links a{padding:12px 0; border-bottom:1px solid var(--line);}
+    .nav-toggle{display:block;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:88px 0 96px;
+    border-bottom:1px solid var(--line);
+    background:
+      radial-gradient(720px 420px at 82% -10%, rgba(232,163,61,0.10), transparent 60%),
+      radial-gradient(560px 360px at -5% 30%, rgba(79,209,197,0.08), transparent 60%);
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.25fr 0.9fr; gap:56px; align-items:center;
+  }
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr; gap:40px;}
+    .hero{padding:56px 0 64px;}
+  }
+
+  .kicker{
+    font-family:var(--mono); font-size:0.8rem; color:var(--teal);
+    letter-spacing:0.02em; margin-bottom:18px; display:flex; align-items:center; gap:10px;
+  }
+  .kicker::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--teal); box-shadow:0 0 0 3px var(--teal-soft);}
+
+  .hero h1{font-size:clamp(2.4rem, 5.2vw, 3.6rem); line-height:1.06; margin-bottom:18px;}
+  .hero h1 em{font-style:italic; color:var(--amber);}
+  .hero p.lede{
+    font-size:1.1rem; color:var(--text-dim); max-width:52ch; margin-bottom:32px;
+  }
+
+  .btn-row{display:flex; flex-wrap:wrap; gap:14px; margin-bottom:44px;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:12px 22px; border-radius:10px; font-size:0.95rem; font-weight:600;
+    text-decoration:none; transition:transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+    border:1px solid transparent; cursor:pointer;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--amber); color:#151b2c;}
+  .btn-primary:hover{background:#f0ad4d;}
+  .btn-ghost{border-color:var(--line-strong); color:var(--text);}
+  .btn-ghost:hover{border-color:var(--amber); color:var(--amber);}
+
+  /* pipeline diagram — the one bold hero element */
+  .pipeline{display:flex; align-items:center; gap:0; max-width:560px; flex-wrap:wrap; row-gap:18px;}
+  .pipe-node{
+    display:flex; flex-direction:column; align-items:center; gap:8px; min-width:78px;
+  }
+  .pipe-dot{
+    width:14px; height:14px; border-radius:50%; background:var(--bg-elev-2);
+    border:2px solid var(--line-strong); position:relative; z-index:2;
+    transition:border-color 0.4s ease, background 0.4s ease;
+  }
+  .pipe-node.lit .pipe-dot{border-color:var(--amber); background:var(--amber);}
+  .pipe-label{font-family:var(--mono); font-size:0.72rem; color:var(--text-dimmer); text-align:center;}
+  .pipe-node.lit .pipe-label{color:var(--text-dim);}
+  .pipe-line{
+    flex:1; height:2px; background:var(--line-strong); min-width:24px; position:relative; overflow:hidden; margin-bottom:22px;
+  }
+  .pipe-line::after{
+    content:""; position:absolute; inset:0; background:var(--amber);
+    width:0%; transition:width 0.5s ease;
+  }
+  .pipe-line.lit::after{width:100%;}
+
+  .photo-frame{
+    position:relative; width:100%; aspect-ratio:3/4; border-radius:20px;
+    background:linear-gradient(160deg, #1c2747, #0e1424 78%);
+    border:1px solid var(--line-strong);
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  .photo-frame::before{
+    content:""; position:absolute; inset:0;
+    background:
+      linear-gradient(transparent 0 24px, var(--line) 24px 25px) 0 0/100% 25px,
+      linear-gradient(90deg, transparent 0 24px, var(--line) 24px 25px) 0 0/25px 100%;
+    opacity:0.5;
+  }
+  .photo-mono{
+    font-family:var(--serif); font-size:5.4rem; color:var(--amber);
+    letter-spacing:-0.02em; position:relative; z-index:1;
+  }
+  .photo-caption{
+    position:absolute; bottom:18px; left:18px; right:18px;
+    font-family:var(--mono); font-size:0.75rem; color:var(--text-dim);
+    display:flex; justify-content:space-between; z-index:1;
+  }
+  /* ---------- SECTIONS (generic) ---------- */
+  section{padding:88px 0; border-bottom:1px solid var(--line);}
+  .section-head{max-width:56ch; margin-bottom:48px;}
+  .section-head h2{font-size:clamp(1.7rem, 3vw, 2.2rem); margin-bottom:12px;}
+  .section-head p{color:var(--text-dim); font-size:1.02rem;}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px;}
+  @media (max-width:800px){.about-grid{grid-template-columns:1fr;}}
+  .about-grid p{color:var(--text-dim); font-size:1.02rem; margin:0 0 18px;}
+  .about-grid p strong{color:var(--text); font-weight:600;}
+  .focus-list{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:14px;}
+  .focus-list li{
+    display:flex; gap:14px; align-items:flex-start;
+    padding:16px 18px; border:1px solid var(--line); border-radius:12px; background:var(--bg-elev);
+  }
+  .focus-list .num{font-family:var(--mono); color:var(--amber); font-size:0.85rem; margin-top:2px;}
+  .focus-list h4{margin:0 0 4px; font-family:var(--sans); font-weight:600; font-size:0.98rem;}
+  .focus-list span.desc{color:var(--text-dim); font-size:0.92rem;}
+
+  /* ---------- EDUCATION ---------- */
+  .edu-card{
+    display:flex; gap:24px; padding:28px; border:1px solid var(--line); border-radius:16px;
+    background:var(--bg-elev); align-items:flex-start; max-width:720px;
+  }
+  .edu-badge{
+    width:54px; height:54px; border-radius:12px; flex:none;
+    background:var(--teal-soft); color:var(--teal);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-weight:600; font-size:1.1rem;
+  }
+  .edu-card h3{font-size:1.2rem; margin-bottom:6px;}
+  .edu-card .school{color:var(--amber); font-size:0.95rem; margin-bottom:10px; font-weight:600;}
+  .edu-card p{color:var(--text-dim); margin:0; font-size:0.96rem;}
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:28px;}
+  @media (max-width:800px){.skills-grid{grid-template-columns:1fr;}}
+  .skill-group{
+    border:1px solid var(--line); border-radius:16px; padding:26px; background:var(--bg-elev);
+  }
+  .skill-group h3{font-size:1.05rem; margin-bottom:16px; font-family:var(--sans); font-weight:600;}
+  .tag-row{display:flex; flex-wrap:wrap; gap:9px;}
+  .tag{
+    font-family:var(--mono); font-size:0.78rem; padding:7px 12px; border-radius:20px;
+    border:1px solid var(--line-strong); color:var(--text-dim); cursor:pointer;
+    background:transparent; transition:all 0.2s ease;
+  }
+  .tag:hover, .tag:focus-visible{border-color:var(--amber); color:var(--amber);}
+  .tag.pulse{
+    border-color:var(--teal); color:var(--teal); background:var(--teal-soft);
+  }
+  .skills-hint{margin-top:18px; font-size:0.85rem; color:var(--text-dimmer);}
+
+  /* ---------- EXPERIENCE ---------- */
+  .exp-item{
+    display:grid; grid-template-columns:220px 1fr; gap:32px; padding:32px 0;
+    border-top:1px solid var(--line);
+  }
+  .exp-item:first-child{border-top:none; padding-top:0;}
+  @media (max-width:760px){.exp-item{grid-template-columns:1fr; gap:10px;}}
+  .exp-role{color:var(--text-dimmer); font-family:var(--mono); font-size:0.85rem;}
+  .exp-item h3{font-size:1.15rem; margin-bottom:6px;}
+  .exp-item .org{color:var(--amber); font-weight:600; font-size:0.95rem; margin-bottom:14px;}
+  .exp-item ul{margin:0; padding-left:20px; color:var(--text-dim);}
+  .exp-item ul li{margin-bottom:10px;}
+  .exp-item ul li:last-child{margin-bottom:0;}
+  .sub-block{margin-top:20px; padding-top:18px; border-top:1px dashed var(--line);}
+  .sub-block h4{font-family:var(--sans); font-size:0.95rem; font-weight:600; color:var(--text); margin-bottom:8px;}
+
+  /* ---------- PROJECTS ---------- */
+  .project-card{
+    border:1px solid var(--line); border-radius:18px; background:var(--bg-elev);
+    padding:32px; margin-bottom:26px; transition:border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  .project-card.highlight{
+    border-color:var(--amber); box-shadow:0 0 0 1px var(--amber), 0 18px 40px -22px rgba(232,163,61,0.5);
+  }
+  .project-shot{
+    width:100%; aspect-ratio:16/9; border-radius:12px; overflow:hidden; margin-bottom:22px;
+    background:linear-gradient(160deg, var(--bg-elev-2), #0e1424 85%);
+    border:1px solid var(--line); display:flex; align-items:center; justify-content:center;
+  }
+  .project-shot img{width:100%; height:100%; object-fit:contain;}
+  .project-shot .shot-placeholder{
+    font-family:var(--mono); font-size:0.78rem; color:var(--text-dimmer); text-align:center; padding:0 20px;
+  }
+  .project-top{display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap; margin-bottom:14px;}
+  .project-card h3{font-size:1.3rem;}
+  .project-card p.desc{color:var(--text-dim); max-width:70ch; margin:0 0 18px;}
+  .project-tools{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;}
+  .project-tools span{
+    font-family:var(--mono); font-size:0.74rem; color:var(--text-dim);
+    border:1px solid var(--line-strong); border-radius:20px; padding:5px 11px;
+  }
+  .kpi-row{display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); gap:16px; margin-bottom:18px;}
+  .kpi{
+    background:var(--bg-elev-2); border:1px solid var(--line); border-radius:12px; padding:14px 16px;
+  }
+  .kpi .kpi-num{font-family:var(--mono); font-weight:600; font-size:1.25rem; color:var(--teal); display:block;}
+  .kpi .kpi-lbl{font-size:0.78rem; color:var(--text-dimmer);}
+  .project-link{
+    display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:0.92rem;
+    color:var(--amber); text-decoration:none; border-bottom:1px solid transparent;
+  }
+  .project-link:hover{border-bottom-color:var(--amber);}
+
+  /* ---------- CONTACT ---------- */
+  .contact-section{border-bottom:none; padding-bottom:64px;}
+  .contact-grid{display:flex; flex-wrap:wrap; gap:16px; margin-top:8px;}
+  .contact-card{
+    flex:1 1 240px; border:1px solid var(--line); border-radius:14px; padding:22px;
+    background:var(--bg-elev); display:flex; flex-direction:column; gap:10px;
+    text-decoration:none; color:var(--text); transition:border-color 0.2s ease, transform 0.2s ease;
+    position:relative;
+  }
+  .contact-card:hover{border-color:var(--amber); transform:translateY(-3px);}
+  .contact-card .label{font-family:var(--mono); font-size:0.75rem; color:var(--text-dimmer);}
+  .contact-card .value{font-weight:600; font-size:1rem; word-break:break-word;}
+  .copy-toast{
+    position:fixed; bottom:28px; left:50%; transform:translate(-50%, 20px);
+    background:var(--amber); color:#151b2c; font-weight:600; font-size:0.9rem;
+    padding:12px 20px; border-radius:10px; opacity:0; pointer-events:none;
+    transition:all 0.25s ease; z-index:60;
+  }
+  .copy-toast.show{opacity:1; transform:translate(-50%, 0);}
+
+  footer{padding:28px 0; text-align:center; color:var(--text-dimmer); font-size:0.85rem;}
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand"><span class="brand-mark">MS</span> Mazen Sabry</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="kicker">JUNIOR DATA ENGINEER · ALEXANDRIA, EGYPT</div>
+        <h1>Turning raw data into <em>pipelines</em> that hold up.</h1>
+        <p class="lede">I'm Mazen — a Computer Science graduate focused on data engineering: cleaning messy data, designing relational schemas, and building the scripts and pipelines that move data from source to something a business can actually use.</p>
+        <!-- Put your CV file next to index.html and rename it to match the href below,
+             or change the href to wherever you host it. -->
+        <div class="btn-row">
+          <a href="#projects" class="btn btn-primary">See my projects</a>
+          <a href="Mazen-Sabry-CV.pdf" class="btn btn-ghost" download>Download CV</a>
+          <a href="#contact" class="btn btn-ghost">Get in touch</a>
+        </div>
+        <div class="pipeline" id="pipeline">
+          <div class="pipe-node" data-i="0"><div class="pipe-dot"></div><div class="pipe-label">RAW DATA</div></div>
+          <div class="pipe-line" data-i="0"></div>
+          <div class="pipe-node" data-i="1"><div class="pipe-dot"></div><div class="pipe-label">CLEAN</div></div>
+          <div class="pipe-line" data-i="1"></div>
+          <div class="pipe-node" data-i="2"><div class="pipe-dot"></div><div class="pipe-label">TRANSFORM</div></div>
+          <div class="pipe-line" data-i="2"></div>
+          <div class="pipe-node" data-i="3"><div class="pipe-dot"></div><div class="pipe-label">INSIGHT</div></div>
+        </div>
+      </div>
+      <!-- To use a real photo, replace the .photo-mono div below with:
+            -->
+      <div class="photo-frame">
+        <img src="photo.png" alt="Mazen Sabry" style="width:100%;height:100%;object-fit:cover;">
+        <div class="photo-caption"><span>Mazen Sabry</span><span>Alexandria, EG</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>About</h2>
+        <p>The short version of how I think about data work.</p>
+      </div>
+      <div class="about-grid">
+        <div>
+          <p>I studied <strong>Computer Science and Mathematics</strong> and have spent my time since graduation building toward a career in <strong>data engineering</strong> — the part of the stack where messy, inconsistent data gets turned into something structured and trustworthy.</p>
+          <p>Day to day, that means writing SQL to model and query relational data, using Python and Pandas to clean and analyze datasets, and building small pipelines — including scraping and API-backed backends — that move data from one place to another reliably.</p>
+          <p>I'm currently deepening my skills in big-data and cloud tooling — Apache Spark, Hadoop, Kafka, and Microsoft Azure — through a structured data engineering training track.</p>
+        </div>
+        <ul class="focus-list">
+          <li><span class="num">01</span><div><h4>Relational databases</h4><span class="desc">ERD design, normalization, SQL Server / SSMS</span></div></li>
+          <li><span class="num">02</span><div><h4>Data cleaning & analysis</h4><span class="desc">Python, Pandas, Matplotlib, Seaborn</span></div></li>
+          <li><span class="num">03</span><div><h4>Pipelines & automation</h4><span class="desc">Web scraping, APIs, Flask backends</span></div></li>
+          <li><span class="num">04</span><div><h4>Big data & cloud</h4><span class="desc">Spark, Hadoop, Kafka, Azure</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Education</h2>
+      </div>
+      <div class="edu-card">
+        <div class="edu-badge">CS</div>
+        <div>
+          <h3>B.Sc. Computer Science &amp; Mathematics</h3>
+          <div class="school">Faculty of Science, Damanhour University</div>
+          <p>Core coursework in programming, databases, and mathematics, with a graduation project focused on backend development, APIs, and automated data collection (see the Waffarly project below).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Technical Skills</h2>
+        <p>Tags are linked to the projects below — click one to see where it's used.</p>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>Databases &amp; SQL</h3>
+          <div class="tag-row">
+            <button class="tag" data-skill="SQL Server">SQL Server</button>
+            <button class="tag" data-skill="SSMS">SSMS</button>
+            <button class="tag" data-skill="ERD">ERD Design</button>
+            <button class="tag" data-skill="Relational Modeling">Relational Modeling</button>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Data Engineering &amp; ETL</h3>
+          <div class="tag-row">
+            <button class="tag" data-skill="ETL">ETL</button>
+            <button class="tag" data-skill="Data Cleaning">Data Cleaning</button>
+            <button class="tag" data-skill="Web Scraping">Web Scraping</button>
+            <button class="tag" data-skill="Pandas">Pandas</button>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Big Data &amp; Cloud</h3>
+          <div class="tag-row">
+            <button class="tag" data-skill="Spark">Apache Spark</button>
+            <button class="tag" data-skill="Hadoop">Hadoop</button>
+            <button class="tag" data-skill="Kafka">Apache Kafka</button>
+            <button class="tag" data-skill="Azure">Microsoft Azure</button>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Programming &amp; Tools</h3>
+          <div class="tag-row">
+            <button class="tag" data-skill="Python">Python</button>
+            <button class="tag" data-skill="Flask">Flask</button>
+            <button class="tag" data-skill="Matplotlib">Matplotlib</button>
+            <button class="tag" data-skill="Seaborn">Seaborn</button>
+            <button class="tag" data-skill="Git">Git &amp; GitHub</button>
+          </div>
+        </div>
+      </div>
+      <p class="skills-hint" id="skillsHint">Certifications: DataCamp (SQL, Python) · DEPI Data Engineering training track.</p>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Experience</h2>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-role">FULL-TIME</div>
+        <div>
+          <h3>IT Technical Support</h3>
+          <div class="org">Souq Fathallah</div>
+          <ul>
+            <li>Provided day-to-day technical support across branches — troubleshooting hardware, software, POS, and network issues for staff.</li>
+            <li>Managed user accounts, access permissions, and basic system configuration for employees.</li>
+            <li>Logged and resolved support tickets, escalating recurring or complex issues to keep systems running smoothly.</li>
+            <li>Maintained and set up workstations, printers, and network connections across the company's locations.</li>
+          </ul>
+          <div class="sub-block">
+            <h4>SAP Implementation — Data Preparation</h4>
+            <ul>
+              <li>As the company prepared to roll out SAP, collected and audited data on all IT-related assets and systems across the organization.</li>
+              <li>Cleaned and filtered that data so it matched the structure required for migration into the new SAP system.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Projects</h2>
+        <p>Two projects that show how I work with data end to end.</p>
+      </div>
+
+      <article class="project-card" data-tools="Python,Flask,SQL Server,Web Scraping,ETL">
+        <!-- Replace this div's contents with:
+             <img src="waffarly-screenshot.png" alt="Waffarly price tracker"> -->
+        <div class="project-shot"><img src="waffarly-screenshot.png" alt="Waffarly price tracker landing page"></div>
+        <div class="project-top">
+          <h3>Waffarly — Price Tracker</h3>
+        </div>
+        <p class="desc">A graduation project that tracks product prices automatically. I worked on the backend and API layer — a Flask service backed by a SQL Server database — plus the automated web scraping that keeps prices up to date without manual work.</p>
+        <div class="project-tools">
+          <span>Flask</span><span>Python</span><span>SQL Server</span><span>Selenium</span><span>REST API</span>
+        </div>
+      </article>
+
+      <article class="project-card" data-tools="Python,Pandas,Matplotlib,Seaborn,Data Cleaning">
+        <!-- Replace this div's contents with:
+             <img src="supermarket-chart.png" alt="Supermarket sales analysis chart"> -->
+        <div class="project-shot"><img src="supermarket-chart.png" alt="Supermarket sales by day of week chart"></div>
+        <div class="project-top">
+          <h3>Supermarket Sales Analysis</h3>
+        </div>
+        <p class="desc">An end-to-end analysis of supermarket sales data using Python, Pandas, Matplotlib, and Seaborn — from cleaning a raw CSV to answering concrete business questions about revenue, profit, and customer satisfaction.</p>
+        <div class="kpi-row">
+          <div class="kpi"><span class="kpi-num" data-target="318041.92" data-prefix="$" data-decimals="2">0</span><span class="kpi-lbl">Total revenue</span></div>
+          <div class="kpi"><span class="kpi-num" data-target="5198.51" data-prefix="$" data-decimals="2">0</span><span class="kpi-lbl">Top branch profit (Giza)</span></div>
+          <div class="kpi"><span class="kpi-num" data-target="321.90" data-prefix="$" data-decimals="2">0</span><span class="kpi-lbl">Avg. transaction value</span></div>
+          <div class="kpi"><span class="kpi-num" data-target="50.3" data-suffix="%" data-decimals="1">0</span><span class="kpi-lbl">Overall satisfaction</span></div>
+        </div>
+        <p class="desc">Cleaning covered data types, missing values, duplicates, and column names, plus derived fields for day/month/year and a rating-based satisfaction flag. The analysis then broke revenue and profit down by city, branch, and category, and compared spending by customer type and payment method.</p>
+        <div class="project-tools">
+          <span>Python</span><span>Pandas</span><span>Matplotlib</span><span>Seaborn</span>
+        </div>
+        <a class="project-link" href="https://github.com/eng-mazensabry/Supermarket-Data-Analysis" target="_blank" rel="noopener">View on GitHub</a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Let's talk data</h2>
+        <p>Open to junior data engineering roles and internships. The fastest way to reach me is email.</p>
+      </div>
+      <div class="contact-grid">
+        <a class="contact-card" href="mailto:mazensabry676@gmail.com" data-copy="mazensabry676@gmail.com" data-copy-label="Email">
+          <span class="label">EMAIL</span>
+          <span class="value">mazensabry676@gmail.com</span>
+        </a>
+        <a class="contact-card" href="tel:+201090493095" data-copy="+201090493095" data-copy-label="Phone">
+          <span class="label">PHONE</span>
+          <span class="value">+20 109 049 3095</span>
+        </a>
+        <a class="contact-card" href="https://www.linkedin.com/in/mazen-sabry-039b3a2b3/" target="_blank" rel="noopener" data-copy="https://www.linkedin.com/in/mazen-sabry-039b3a2b3/" data-copy-label="LinkedIn link">
+          <span class="label">LINKEDIN</span>
+          <span class="value">mazen-sabry-039b3a2b3</span>
+        </a>
+        <a class="contact-card" href="https://github.com/eng-mazensabry" target="_blank" rel="noopener" data-copy="https://github.com/eng-mazensabry" data-copy-label="GitHub link">
+          <span class="label">GITHUB</span>
+          <span class="value">eng-mazensabry</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>Mazen Sabry — Data Engineer, Alexandria, Egypt</footer>
+
+<div class="copy-toast" id="copyToast">Copied to clipboard</div>
+
+<script>
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }));
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('main section[id]');
+  const navAnchors = document.querySelectorAll('nav.nav-links a');
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navAnchors.forEach(a => a.classList.remove('active'));
+        const match = document.querySelector(`nav.nav-links a[href="#${entry.target.id}"]`);
+        if (match) match.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => navObserver.observe(s));
+
+  // Hero pipeline: light up nodes in sequence once
+  const pipeline = document.getElementById('pipeline');
+  function runPipeline(){
+    const nodes = pipeline.querySelectorAll('.pipe-node');
+    const lines = pipeline.querySelectorAll('.pipe-line');
+    nodes.forEach((n, i) => setTimeout(() => n.classList.add('lit'), i * 420));
+    lines.forEach((l, i) => setTimeout(() => l.classList.add('lit'), i * 420 + 200));
+  }
+  const heroObserver = new IntersectionObserver((entries, obs) => {
+    if (entries[0].isIntersecting) { runPipeline(); obs.disconnect(); }
+  }, { threshold: 0.4 });
+  heroObserver.observe(pipeline);
+
+  // KPI count-up animation
+  const kpiNums = document.querySelectorAll('.kpi-num');
+  function animateKpi(el){
+    const target = parseFloat(el.dataset.target);
+    const decimals = parseInt(el.dataset.decimals || '0', 10);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const duration = 900;
+    const start = performance.now();
+    function tick(now){
+      const p = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const val = target * eased;
+      el.textContent = prefix + val.toLocaleString('en-US', {minimumFractionDigits:decimals, maximumFractionDigits:decimals}) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  const kpiObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { animateKpi(entry.target); obs.unobserve(entry.target); }
+    });
+  }, { threshold: 0.6 });
+  kpiNums.forEach(el => kpiObserver.observe(el));
+
+  // Skill tags -> highlight matching projects
+  const tags = document.querySelectorAll('.tag');
+  const projectCards = document.querySelectorAll('.project-card');
+  const skillsHint = document.getElementById('skillsHint');
+  tags.forEach(tag => {
+    tag.addEventListener('click', () => {
+      const skill = tag.dataset.skill;
+      let matches = 0;
+      projectCards.forEach(card => {
+        const tools = (card.dataset.tools || '').split(',').map(s => s.trim());
+        const isMatch = tools.some(t => t.toLowerCase().includes(skill.toLowerCase()) || skill.toLowerCase().includes(t.toLowerCase()));
+        card.classList.toggle('highlight', isMatch);
+        if (isMatch) matches++;
+      });
+      tags.forEach(t => t.classList.toggle('pulse', t === tag));
+      if (matches > 0) {
+        skillsHint.textContent = `Used in ${matches} project${matches > 1 ? 's' : ''} below — highlighted in the Projects section.`;
+        document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(() => {
+          projectCards.forEach(card => card.classList.remove('highlight'));
+        }, 2600);
+      } else {
+        skillsHint.textContent = 'Not directly tied to a project below yet.';
+      }
+    });
+  });
+
+  // Copy-to-clipboard for any element with a data-copy attribute
+  const toast = document.getElementById('copyToast');
+  document.querySelectorAll('[data-copy]').forEach(el => {
+    el.addEventListener('click', async (e) => {
+      const value = el.dataset.copy;
+      try {
+        await navigator.clipboard.writeText(value);
+      } catch (err) {
+        const ta = document.createElement('textarea');
+        ta.value = value; document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta);
+      }
+      toast.textContent = (el.dataset.copyLabel || 'Copied') + ' to clipboard';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1800);
+    });
+  });
+</script>
+
+</body>
+</html>
