@@ -319,6 +319,26 @@
   .copy-toast.show{opacity:1; transform:translate(-50%, 0);}
 
   footer{padding:28px 0; text-align:center; color:var(--text-dimmer); font-size:0.85rem;}
+  /* ---------- SERVICES ---------- */
+  .services-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:24px;}
+  @media (max-width:980px){.services-grid{grid-template-columns:repeat(2, 1fr);}}
+  @media (max-width:640px){.services-grid{grid-template-columns:1fr;}}
+  .service-card{
+    border:1px solid var(--line); border-radius:16px; padding:26px;
+    background:var(--bg-elev); display:flex; flex-direction:column; gap:12px;
+    transition:border-color 0.25s ease, transform 0.25s ease;
+  }
+  .service-card:hover{border-color:var(--amber); transform:translateY(-4px);}
+  .service-num{font-family:var(--mono); font-size:0.8rem; color:var(--amber);}
+  .service-card h3{font-family:var(--sans); font-weight:600; font-size:1.08rem; letter-spacing:0;}
+  .service-card p{margin:0; color:var(--text-dim); font-size:0.94rem;}
+  .service-card .svc-tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:auto; padding-top:6px;}
+  .service-card .svc-tags span{
+    font-family:var(--mono); font-size:0.72rem; color:var(--teal);
+    background:var(--teal-soft); border-radius:20px; padding:4px 10px;
+  }
+  .services-cta{margin-top:40px; display:flex; align-items:center; gap:18px; flex-wrap:wrap; color:var(--text-dim);}
+
 </style>
 </head>
 <body>
@@ -333,6 +353,7 @@
       <a href="#skills">Skills</a>
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
+      <a href="#services">Services</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
@@ -536,6 +557,63 @@
         <a class="project-link" href="https://github.com/eng-mazensabry/Supermarket-Data-Analysis" target="_blank" rel="noopener">View on GitHub</a>
       </article>
 
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Services</h2>
+        <p>What I can build or clean up for you — from a messy spreadsheet to a working pipeline.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <span class="service-num">01</span>
+          <h3>Data Cleaning &amp; Preparation</h3>
+          <p>Fixing data types, missing values, duplicates, and inconsistent columns so your data is ready for analysis or migration into a new system.</p>
+          <div class="svc-tags"><span>Python</span><span>Pandas</span></div>
+        </div>
+
+        <div class="service-card">
+          <span class="service-num">02</span>
+          <h3>ETL Pipelines</h3>
+          <p>Extracting data from CSV, Parquet, and APIs, transforming and merging it, then loading it into a database with a repeatable script.</p>
+          <div class="svc-tags"><span>Python</span><span>pyodbc</span><span>SQL Server</span></div>
+        </div>
+
+        <div class="service-card">
+          <span class="service-num">03</span>
+          <h3>Database Design &amp; SQL</h3>
+          <p>ERD design, normalization, and relational schemas with proper keys and constraints, plus SQL queries that answer real business questions.</p>
+          <div class="svc-tags"><span>SQL Server</span><span>SSMS</span><span>ERD</span></div>
+        </div>
+
+        <div class="service-card">
+          <span class="service-num">04</span>
+          <h3>Web Scraping &amp; Data Collection</h3>
+          <p>Automated scrapers that collect prices, listings, or job data and save it as clean CSV files or database tables.</p>
+          <div class="svc-tags"><span>Selenium</span><span>Python</span><span>REST API</span></div>
+        </div>
+
+        <div class="service-card">
+          <span class="service-num">05</span>
+          <h3>Backend APIs &amp; Data Dashboards</h3>
+          <p>Flask services that expose your data through an API or show it in a simple dashboard, connected directly to your database.</p>
+          <div class="svc-tags"><span>Flask</span><span>REST API</span><span>SQL Server</span></div>
+        </div>
+
+        <div class="service-card">
+          <span class="service-num">06</span>
+          <h3>Data Analysis &amp; Visualization</h3>
+          <p>End-to-end analysis of sales or operational data: revenue, profit, customer behavior, with clear charts and written findings.</p>
+          <div class="svc-tags"><span>Pandas</span><span>Matplotlib</span><span>Seaborn</span></div>
+        </div>
+      </div>
+      <div class="services-cta">
+        <span>Have a data problem in mind?</span>
+        <a href="#contact" class="btn btn-primary">Let's talk</a>
+      </div>
     </div>
   </section>
 
