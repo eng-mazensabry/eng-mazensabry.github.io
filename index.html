@@ -339,6 +339,15 @@
   }
   .services-cta{margin-top:40px; display:flex; align-items:center; gap:18px; flex-wrap:wrap; color:var(--text-dim);}
 
+  /* ---------- HERO USP ---------- */
+  .hero-usp{list-style:none; padding:0; margin:0 0 32px; display:flex; flex-direction:column; gap:12px; max-width:52ch;}
+  .hero-usp li{display:flex; gap:12px; align-items:flex-start; color:var(--text-dim); font-size:0.98rem;}
+  .hero-usp li::before{
+    content:""; flex:none; width:8px; height:8px; margin-top:9px; border-radius:50%;
+    background:var(--amber); box-shadow:0 0 0 3px var(--amber-soft);
+  }
+  .hero-usp strong{color:var(--text); font-weight:600;}
+
 </style>
 </head>
 <body>
@@ -370,6 +379,11 @@
         <p class="lede">I'm Mazen — a Computer Science graduate focused on data engineering: cleaning messy data, designing relational schemas, and building the scripts and pipelines that move data from source to something a business can actually use.</p>
         <!-- Put your CV file next to index.html and rename it to match the href below,
              or change the href to wherever you host it. -->
+        <ul class="hero-usp">
+          <li><span><strong>Real business data experience</strong> &mdash; IT support across branches and data preparation for a SAP rollout.</span></li>
+          <li><span><strong>End to end</strong> &mdash; scraping, SQL Server, and a Flask API, built as one working system.</span></li>
+          <li><span><strong>Solid foundations</strong> &mdash; CS &amp; Math degree, proper ERDs and normalization, and scripts you can re-run.</span></li>
+        </ul>
         <div class="btn-row">
           <a href="#projects" class="btn btn-primary">See my projects</a>
           <a href="Mazen-Sabry-CV.pdf" class="btn btn-ghost" download>Download CV</a>
